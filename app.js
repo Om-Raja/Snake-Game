@@ -6,6 +6,26 @@ const listOfCells = [];
 const snake = [{ row: 1, col: 2 }];
 let direction = "right";
 
+//Choosing direction
+window.addEventListener("keydown", (event)=>{
+    switch(event.key){
+        case "ArrowUp":
+            direction = "up";
+            break;
+        case "ArrowDown":
+            direction = "down";
+            break;
+        case "ArrowLeft":
+            direction = "left";
+            break;
+        case "ArrowRight":
+            direction = "right";
+            break;
+        default:
+            direction = "right";
+    }
+})
+
 for (let i = 0; i < noOfRows; i++) {
   for (let j = 0; j < noOfCols; j++) {
     const cell = document.createElement("div");
@@ -59,5 +79,5 @@ const intervalId = setInterval(()=>{
 }, 450);
 
 setTimeout(()=>{
-    clearInterval(intervalId);
+    // clearInterval(intervalId);
 }, 2000);
