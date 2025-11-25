@@ -1,0 +1,63 @@
+const board = document.querySelector(".board");
+const noOfRows = Math.floor(board.clientHeight / 30);
+const noOfCols = Math.floor(board.clientWidth / 30);
+
+const listOfCells = [];
+const snake = [{ row: 1, col: 2 }];
+let direction = "right";
+
+for (let i = 0; i < noOfRows; i++) {
+  for (let j = 0; j < noOfCols; j++) {
+    const cell = document.createElement("div");
+    cell.classList.add("cell");
+    board.append(cell);
+    listOfCells[`${i}-${j}`] = cell;
+  }
+}
+
+function buildSnake() {
+  for (let i = 0; i < snake.length; i++) {
+    listOfCells[`${snake[i].row}-${snake[i].col}`].classList.add("snakeCell");
+  }
+}
+
+function runSnake() {
+  switch (direction) {
+    case "right":
+      for (let i = 0; i < snake.length; i++) {
+        listOfCells[`${snake[i].row}-${snake[i].col}`].classList.remove("snakeCell");
+        snake[i].col += 1;
+      }
+      buildSnake();
+      break;
+    case "left":
+      for (let i = 0; i < snake.length; i++) {
+        listOfCells[`${snake[i].row}-${snake[i].col}`].classList.remove("snakeCell");
+        snake[i].col -= 1;
+      }
+      buildSnake();
+      break;
+    case "up":
+      for (let i = 0; i < snake.length; i++) {
+        listOfCells[`${snake[i].row}-${snake[i].col}`].classList.remove("snakeCell");
+        snake[i].row -= 1;
+      }
+      buildSnake();
+      break;
+    case "down":
+      for (let i = 0; i < snake.length; i++) {
+        listOfCells[`${snake[i].row}-${snake[i].col}`].classList.remove("snakeCell");
+        snake[i].row += 1;
+      }
+      buildSnake();
+      break;
+  }
+}
+
+const intervalId = setInterval(()=>{
+    runSnake();
+}, 450);
+
+setTimeout(()=>{
+    clearInterval(intervalId);
+}, 2000);
