@@ -60,7 +60,7 @@ function runSnake() {
         listOfCells[`${snake[i].row}-${snake[i].col}`].classList.remove(
           "snakeCell",
         );
-        snake[i] = snake[i - 1];
+        Object.assign(snake[i], snake[i-1]);
       }
       listOfCells[`${snake[0].row}-${snake[0].col}`].classList.remove(
         "snakeCell",
@@ -74,7 +74,7 @@ function runSnake() {
         listOfCells[`${snake[i].row}-${snake[i].col}`].classList.remove(
           "snakeCell",
         );
-        snake[i] = snake[i - 1];
+        Object.assign(snake[i], snake[i-1]);
       }
       listOfCells[`${snake[0].row}-${snake[0].col}`].classList.remove(
         "snakeCell",
@@ -88,7 +88,7 @@ function runSnake() {
         listOfCells[`${snake[i].row}-${snake[i].col}`].classList.remove(
           "snakeCell",
         );
-        snake[i] = snake[i - 1];
+        Object.assign(snake[i], snake[i-1]);
       }
       listOfCells[`${snake[0].row}-${snake[0].col}`].classList.remove(
         "snakeCell",
@@ -102,7 +102,7 @@ function runSnake() {
         listOfCells[`${snake[i].row}-${snake[i].col}`].classList.remove(
           "snakeCell",
         );
-        snake[i] = snake[i - 1];
+        Object.assign(snake[i], snake[i-1]);
       }
       listOfCells[`${snake[0].row}-${snake[0].col}`].classList.remove(
         "snakeCell",
