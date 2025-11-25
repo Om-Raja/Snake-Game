@@ -90,3 +90,8 @@ section{
     background-color: rgb(157, 6, 183);
     border-radius: var(--size-sm);
 }
+
+.food{
+    background-color: yellow;
+    border-radius: var(--size-sm);    
+}

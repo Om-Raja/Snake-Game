@@ -5,6 +5,7 @@ const noOfCols = Math.floor(board.clientWidth / 30);
 const listOfCells = [];
 const snake = [{ row: 1, col: 2 }];
 let direction = "right";
+let food;
 
 //Choosing direction
 window.addEventListener("keydown", (event)=>{
@@ -39,6 +40,12 @@ function buildSnake() {
   for (let i = 0; i < snake.length; i++) {
     listOfCells[`${snake[i].row}-${snake[i].col}`].classList.add("snakeCell");
   }
+}
+
+function renderFood(){
+    food = {row: Math.floor(Math.random()*noOfRows), col: Math.floor(Math.random()*noOfCols)};
+    
+    listOfCells[`${food.row}-${food.col}`].classList.add("food");
 }
 
 function runSnake() {
