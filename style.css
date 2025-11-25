@@ -67,7 +67,6 @@ section{
     width: 100%;
     height: 100%;
     margin: var(--size-sm);
-    margin-top: var(--size-lg);
     padding: var(--size-sm);
 }
 

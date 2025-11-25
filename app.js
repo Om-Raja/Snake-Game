@@ -1,15 +1,53 @@
 const board = document.querySelector(".board");
+const scoreElement = document.getElementById("score");
+const highScoreElement = document.getElementById("highScore");
+const timeElement = document.getElementById("time");
+
 const noOfRows = Math.floor(board.clientHeight / 30);
 const noOfCols = Math.floor(board.clientWidth / 30);
 
 const listOfCells = [];
-const snake = [
-  { row: 1, col: 2 },
-  { row: 1, col: 3 },
-  { row: 1, col: 4 },
-];
+const snake = [{ row: 1, col: 2 }];
+
 let direction = "right";
 let food;
+let score = 0;
+let highScore = localStorage.getItem("highScoreOfSnakeGame") || 0;
+highScoreElement.innerText = highScore;
+let second = 0;
+let minute = 0;
+let hour = 0;
+let timeInterval;
+let intervalId;
+let extraSnakeCell = {};
+
+function startGame() {
+  //time update
+  updateTime();
+
+  //Manually rendering first food
+  renderFood();
+
+  intervalId = setInterval(() => {
+    buildSnake();
+    checkFoodEaten();
+  }, 300);
+}
+
+function updateTime() {
+  timeInterval = setInterval(() => {
+    second += 1;
+    if (second === 60) {
+      second = 0;
+      minute += 1;
+      if (minute === 60) {
+        hour += 1;
+        minute = 0;
+      }
+    }
+    timeElement.innerText = `${hour}:${minute}:${second}`;
+  }, 1000);
+}
 
 //Choosing direction
 window.addEventListener("keydown", (event) => {
@@ -18,13 +56,13 @@ window.addEventListener("keydown", (event) => {
       if (direction === "left" || direction === "right") direction = "up";
       break;
     case "ArrowDown":
-      if(direction === "left" || direction === "right") direction = "down";
+      if (direction === "left" || direction === "right") direction = "down";
       break;
     case "ArrowLeft":
-      if(direction === "up" || direction === "down") direction = "left";
+      if (direction === "up" || direction === "down") direction = "left";
       break;
     case "ArrowRight":
-      if(direction === "up" || direction === "down") direction = "right";
+      if (direction === "up" || direction === "down") direction = "right";
       break;
   }
 });
@@ -45,11 +83,16 @@ function renderSnake() {
 }
 
 function renderFood() {
-    //todo: if food coordinate is in snake coordinates then render food again by calling this same function
+  //todo: if food coordinate is in snake coordinates then render food again by calling this same function
+  //if food already exist, un-render it
+  if (food) {
+    listOfCells[`${food.row}-${food.col}`].classList.remove("food");
+  }
   food = {
     row: Math.floor(Math.random() * noOfRows),
     col: Math.floor(Math.random() * noOfCols),
   };
+  console.log(food);
 
   listOfCells[`${food.row}-${food.col}`].classList.add("food");
 }
@@ -57,6 +100,7 @@ function renderFood() {
 function buildSnake() {
   switch (direction) {
     case "right":
+      Object.assign(extraSnakeCell, snake[snake.length - 1]);
       for (let i = snake.length - 1; i > 0; i--) {
         listOfCells[`${snake[i].row}-${snake[i].col}`].classList.remove(
           "snakeCell",
@@ -71,6 +115,7 @@ function buildSnake() {
       renderSnake();
       break;
     case "left":
+      Object.assign(extraSnakeCell, snake[snake.length - 1]);
       for (let i = snake.length - 1; i > 0; i--) {
         listOfCells[`${snake[i].row}-${snake[i].col}`].classList.remove(
           "snakeCell",
@@ -85,6 +130,7 @@ function buildSnake() {
       renderSnake();
       break;
     case "up":
+      Object.assign(extraSnakeCell, snake[snake.length - 1]);
       for (let i = snake.length - 1; i > 0; i--) {
         listOfCells[`${snake[i].row}-${snake[i].col}`].classList.remove(
           "snakeCell",
@@ -99,6 +145,7 @@ function buildSnake() {
       renderSnake();
       break;
     case "down":
+      Object.assign(extraSnakeCell, snake[snake.length - 1]);
       for (let i = snake.length - 1; i > 0; i--) {
         listOfCells[`${snake[i].row}-${snake[i].col}`].classList.remove(
           "snakeCell",
@@ -115,22 +162,29 @@ function buildSnake() {
   }
 }
 
-//Manually rendering first food
-renderFood();
-
-const intervalId = setInterval(() => {
-  buildSnake();
-  checkFoodEaten();
-}, 450);
-
 function endGame() {
   clearInterval(intervalId);
+  clearInterval(timeInterval);
+
+  if (highScore > localStorage.getItem("highScoreOfSnakeGame"))
+    localStorage.setItem("highScoreOfSnakeGame", highScore);
   return alert("Game Over!");
 }
 
-function checkFoodEaten(){
-    if(snake[0].row === food.row && snake[0].col === food.col){
-        console.log("food eaten");
-        renderFood();
+function checkFoodEaten() {
+  if (snake[0].row === food.row && snake[0].col === food.col) {
+    snake.push({...extraSnakeCell});
+    renderSnake();
+    console.log("snake here")
+    snake.forEach((s)=>{
+        console.log(s);
+    })
+    score += 10;
+    if (score > highScore) {
+      highScore = score;
+      highScoreElement.innerText = highScore;
     }
+    scoreElement.innerText = score;
+    renderFood();
+  }
 }
