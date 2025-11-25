@@ -1,0 +1,38 @@
+:root{
+    /* background colors */
+    --bg-primary-color: #1b1a1a;
+    
+    /* colors */
+    --text-primary-color: #f2f0f0;
+
+    /* spacing */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 32px;
+    --space-xl: 48px;
+    --space-2xl: 64px;
+    --space-3xl: 80px;
+
+    /* fontSize */
+    --size-xs: 8px;
+    --size-sm: 12px;
+    --size-md: 16px;
+    --size-lg: 20px;
+    --size-xl: 24px;
+    --size-2xl: 32px;
+    --size-3xl: 48px;
+}
+
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+html, body{
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-primary-color);
+    color: var(--text-primary-color);
+    font-size: var(--size-md);
+}
