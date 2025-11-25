@@ -83,7 +83,6 @@ function renderSnake() {
 }
 
 function renderFood() {
-  //todo: if food coordinate is in snake coordinates then render food again by calling this same function
   //if food already exist, un-render it
   if (food) {
     listOfCells[`${food.row}-${food.col}`].classList.remove("food");
@@ -92,7 +91,10 @@ function renderFood() {
     row: Math.floor(Math.random() * noOfRows),
     col: Math.floor(Math.random() * noOfCols),
   };
-  console.log(food);
+
+  snake.forEach((bead) => {
+    if (bead.row === food.row && bead.col === food.col) renderFood();
+  });
 
   listOfCells[`${food.row}-${food.col}`].classList.add("food");
 }
@@ -110,6 +112,16 @@ function buildSnake() {
       listOfCells[`${snake[0].row}-${snake[0].col}`].classList.remove(
         "snakeCell",
       );
+
+      //check if snake ate itself - game over
+      for (let i = 1; i < snake.length; i++) {
+        if (snake[0].col + 1 === snake[i].col) {
+          if (snake[0].row === snake[i].row) {
+            endGame("You ate yourself, Game Over!");
+          }
+        }
+      }
+
       snake[0].col += 1;
       if (snake[0].col == noOfCols) endGame();
       renderSnake();
@@ -125,6 +137,16 @@ function buildSnake() {
       listOfCells[`${snake[0].row}-${snake[0].col}`].classList.remove(
         "snakeCell",
       );
+
+      //check if snake ate itself - game over
+      for (let i = 1; i < snake.length; i++) {
+        if (snake[0].col - 1 === snake[i].col) {
+          if (snake[0].row === snake[i].row) {
+            endGame("You ate yourself, Game Over!");
+          }
+        }
+      }
+
       snake[0].col -= 1;
       if (snake[0].col == -1) endGame();
       renderSnake();
@@ -140,6 +162,16 @@ function buildSnake() {
       listOfCells[`${snake[0].row}-${snake[0].col}`].classList.remove(
         "snakeCell",
       );
+
+      //check if snake ate itself - game over
+      for (let i = 1; i < snake.length; i++) {
+        if (snake[0].row - 1 === snake[i].row) {
+          if (snake[0].col === snake[i].col) {
+            endGame("You ate yourself, Game Over!");
+          }
+        }
+      }
+
       snake[0].row -= 1;
       if (snake[0].row == -1) endGame();
       renderSnake();
@@ -155,6 +187,16 @@ function buildSnake() {
       listOfCells[`${snake[0].row}-${snake[0].col}`].classList.remove(
         "snakeCell",
       );
+
+      //check if snake ate itself - game over
+      for (let i = 1; i < snake.length; i++) {
+        if (snake[0].row + 1 === snake[i].row) {
+          if (snake[0].col === snake[i].col) {
+            endGame("You ate yourself, Game Over!");
+          }
+        }
+      }
+
       snake[0].row += 1;
       if (snake[0].row == noOfRows) endGame();
       renderSnake();
@@ -162,23 +204,21 @@ function buildSnake() {
   }
 }
 
-function endGame() {
+function endGame(message = "") {
   clearInterval(intervalId);
   clearInterval(timeInterval);
 
+  console.log(message);
+
   if (highScore > localStorage.getItem("highScoreOfSnakeGame"))
     localStorage.setItem("highScoreOfSnakeGame", highScore);
-  return alert("Game Over!");
+  return alert(message, "Game Over!");
 }
 
 function checkFoodEaten() {
   if (snake[0].row === food.row && snake[0].col === food.col) {
-    snake.push({...extraSnakeCell});
+    snake.push({ ...extraSnakeCell });
     renderSnake();
-    console.log("snake here")
-    snake.forEach((s)=>{
-        console.log(s);
-    })
     score += 10;
     if (score > highScore) {
       highScore = score;
