@@ -4,6 +4,8 @@ const highScoreElement = document.getElementById("highScore");
 const timeElement = document.getElementById("time");
 const startModal = document.querySelector(".start-modal");
 const startBtn = document.querySelector(".btn-start");
+const levelElement = document.getElementById("levelSetter");
+
 
 const noOfRows = Math.floor(board.clientHeight / 30);
 const noOfCols = Math.floor(board.clientWidth / 30);
@@ -22,10 +24,27 @@ let hour = 0;
 let timeInterval;
 let intervalId;
 let extraSnakeCell = {};
+let timeInMs = 250; //250ms by default
+
 
 
 startBtn.addEventListener("click", ()=>{
   startModal.style.display = "none";
+  
+  //set level
+  switch(levelElement.value){
+    case "easy":
+      timeInMs = 350;
+      break;
+    case "medium":
+      timeInMs = 250;
+      break;
+    case "hard":
+      timeInMs = 150;
+      break;
+    default:
+      timeInMs = 250;
+  }
   startGame();
 })
 
@@ -39,7 +58,7 @@ function startGame() {
   intervalId = setInterval(() => {
     buildSnake();
     checkFoodEaten();
-  }, 300);
+  }, timeInMs);
 }
 
 function updateTime() {
