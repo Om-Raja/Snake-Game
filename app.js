@@ -15,7 +15,7 @@ const noOfRows = Math.floor(board.clientHeight / 30);
 const noOfCols = Math.floor(board.clientWidth / 30);
 
 const listOfCells = [];
-const snake = [{ row: 1, col: 2 }];
+let snake = [{ row: 1, col: 2 }];
 
 let direction = "right";
 let food;
@@ -30,35 +30,28 @@ let intervalId;
 let extraSnakeCell = {};
 let timeInMs = 250; //250ms by default
 
-
-
-startBtn.addEventListener("click", ()=>{
+startBtn.addEventListener("click", () => {
   startModal.style.display = "none";
-  
+
   //set level
-  switch(levelElement.value){
-    case "easy":
-      timeInMs = 350;
-      levelViewer.innerText = "Easy";
-      levelViewer.style.color = "green"
-      break;
-    case "medium":
-      timeInMs = 250;
-      levelViewer.innerText = "Medium";
-      levelViewer.style.color = "yellow"
-      break;
-    case "hard":
-      timeInMs = 150;
-      levelViewer.innerText = "Hard";
-      levelViewer.style.color = "red";
-      break;
-    default:
-      timeInMs = 250;
-      levelViewer.innerText = "Medium";
-      levelViewer.style.color = "yellow";
-  }
+  setLevel();
   startGame();
-})
+});
+
+restartBtn.addEventListener("click", () => {
+  console.log("restart button clicked");
+  endModal.style.display = "none";
+  snake = [{ row: 1, col: 2 }];
+  score = 0;
+  hour = 0;
+  minute = 0;
+  second = 0;
+  direction = "right";
+
+  scoreElement.innerText = score;
+  startModal.style.display = "flex";
+  console.log("start modal flex");
+});
 
 function startGame() {
   //time update
@@ -71,6 +64,30 @@ function startGame() {
     buildSnake();
     checkFoodEaten();
   }, timeInMs);
+}
+
+function setLevel() {
+  switch (levelElement.value) {
+    case "easy":
+      timeInMs = 350;
+      levelViewer.innerText = "Easy";
+      levelViewer.style.color = "green";
+      break;
+    case "medium":
+      timeInMs = 250;
+      levelViewer.innerText = "Medium";
+      levelViewer.style.color = "yellow";
+      break;
+    case "hard":
+      timeInMs = 150;
+      levelViewer.innerText = "Hard";
+      levelViewer.style.color = "red";
+      break;
+    default:
+      timeInMs = 250;
+      levelViewer.innerText = "Medium";
+      levelViewer.style.color = "yellow";
+  }
 }
 
 function updateTime() {
@@ -156,7 +173,7 @@ function buildSnake() {
       for (let i = 1; i < snake.length; i++) {
         if (snake[0].col + 1 === snake[i].col) {
           if (snake[0].row === snake[i].row) {
-            endGame("You ate yourself, Game Over!");
+            endGame("Oh! The snake bit itself.🐍🫦 Game Over!");
           }
         }
       }
@@ -181,7 +198,7 @@ function buildSnake() {
       for (let i = 1; i < snake.length; i++) {
         if (snake[0].col - 1 === snake[i].col) {
           if (snake[0].row === snake[i].row) {
-            endGame("You ate yourself, Game Over!");
+            endGame("Oh! The snake bit itself.🐍🫦 Game Over!");
           }
         }
       }
@@ -206,7 +223,7 @@ function buildSnake() {
       for (let i = 1; i < snake.length; i++) {
         if (snake[0].row - 1 === snake[i].row) {
           if (snake[0].col === snake[i].col) {
-            endGame("You ate yourself, Game Over!");
+            endGame("Oh! The snake bit itself.🐍🫦 Game Over!");
           }
         }
       }
@@ -231,7 +248,7 @@ function buildSnake() {
       for (let i = 1; i < snake.length; i++) {
         if (snake[0].row + 1 === snake[i].row) {
           if (snake[0].col === snake[i].col) {
-            endGame("You ate yourself, Game Over!");
+            endGame("Oh! The snake bit itself.🐍🫦 Game Over!");
           }
         }
       }
