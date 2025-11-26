@@ -2,6 +2,8 @@ const board = document.querySelector(".board");
 const scoreElement = document.getElementById("score");
 const highScoreElement = document.getElementById("highScore");
 const timeElement = document.getElementById("time");
+const startModal = document.querySelector(".start-modal");
+const startBtn = document.querySelector(".btn-start");
 
 const noOfRows = Math.floor(board.clientHeight / 30);
 const noOfCols = Math.floor(board.clientWidth / 30);
@@ -20,6 +22,12 @@ let hour = 0;
 let timeInterval;
 let intervalId;
 let extraSnakeCell = {};
+
+
+startBtn.addEventListener("click", ()=>{
+  startModal.style.display = "none";
+  startGame();
+})
 
 function startGame() {
   //time update

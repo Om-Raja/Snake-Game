@@ -1,29 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Snake Game</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+  </head>
+  <body>
     <main>
-        <div class="start-modal">
-            "Press START button to begin the game !"
-            <button class="btn btn-start">START</button>
+      <div class="start-modal">
+        "Press START button to begin the game !"
+        <label
+          >Choose level :
+          <select>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </label>
+        <button class="btn btn-start">START</button>
+      </div>
+      <div class="end-modal">
+        "Press START button to begin the game !"
+        <button class="btn btn-start">START</button>
+      </div>
+      <section class="infos">
+        <div class="info">
+          High Score : <span><strong id="highScore">0</strong></span>
         </div>
-        <section class="infos">
-            <div class="info">High Score : <span><strong id="highScore">0</strong></span></div>
-            <div class="info">Score: <span><strong id="score">0</strong></span></div>
-            <div class="info"> <i class="fa-solid fa-alarm-clock"></i> <span><strong id="time">00:00:00</strong></span></div>
-            <div class="info">Level : <span id="level">Medium</span></div>
-        </section>
-        <section>
-            <div class="board"></div>
-        </section>
+        <div class="info">
+          Score: <span><strong id="score">0</strong></span>
+        </div>
+        <div class="info">
+          <i class="fa-solid fa-alarm-clock"></i>
+          <span><strong id="time">00:00:00</strong></span>
+        </div>
+        <div class="info">Level : <span id="level">Medium</span></div>
+      </section>
+      <section>
+        <div class="board"></div>
+      </section>
     </main>
 
     <script src="app.js"></script>
-</body>
+  </body>
 </html>
