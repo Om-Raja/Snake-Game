@@ -19,9 +19,9 @@
         "Press START button to begin the game !"
         <label
           >Choose level :
-          <select id="levelSetter" name="level">
+          <select class="btn" id="levelSetter" name="level">
             <option value="easy">Easy</option>
-            <option value="medium">Medium</option>
+            <option value="medium" selected>Medium</option>
             <option value="hard">Hard</option>
           </select>
         </label>
@@ -42,7 +42,7 @@
           <i class="fa-solid fa-alarm-clock"></i>
           <span><strong id="time">00:00:00</strong></span>
         </div>
-        <div class="info">Level : <span id="level">Medium</span></div>
+        <div class="info">Level : <span id="level"></span></div>
       </section>
       <section>
         <div class="board"></div>

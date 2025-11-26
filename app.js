@@ -5,6 +5,7 @@ const timeElement = document.getElementById("time");
 const startModal = document.querySelector(".start-modal");
 const startBtn = document.querySelector(".btn-start");
 const levelElement = document.getElementById("levelSetter");
+const levelViewer = document.getElementById("level");
 
 
 const noOfRows = Math.floor(board.clientHeight / 30);
@@ -35,15 +36,23 @@ startBtn.addEventListener("click", ()=>{
   switch(levelElement.value){
     case "easy":
       timeInMs = 350;
+      levelViewer.innerText = "Easy";
+      levelViewer.style.color = "green"
       break;
     case "medium":
       timeInMs = 250;
+      levelViewer.innerText = "Medium";
+      levelViewer.style.color = "yellow"
       break;
     case "hard":
       timeInMs = 150;
+      levelViewer.innerText = "Hard";
+      levelViewer.style.color = "red";
       break;
     default:
       timeInMs = 250;
+      levelViewer.innerText = "Medium";
+      levelViewer.style.color = "yellow";
   }
   startGame();
 })
@@ -231,7 +240,7 @@ function buildSnake() {
   }
 }
 
-function endGame(message = "") {
+function endGame(message = "Oh! You struck the wall ! 🤦") {
   clearInterval(intervalId);
   clearInterval(timeInterval);
 
