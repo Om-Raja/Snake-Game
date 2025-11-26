@@ -86,8 +86,7 @@ section{
 
 .snakeCell{
     background-color: rgb(157, 6, 183);
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
+    border-radius: 30px;
     box-shadow: 3px 3px 6px #1c0d15;
 }
 
