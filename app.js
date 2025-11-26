@@ -6,7 +6,10 @@ const startModal = document.querySelector(".start-modal");
 const startBtn = document.querySelector(".btn-start");
 const levelElement = document.getElementById("levelSetter");
 const levelViewer = document.getElementById("level");
-
+const endModal = document.querySelector(".end-modal");
+const yourScore = document.getElementById("your-score");
+const endMessage = document.getElementById("message");
+const restartBtn = document.querySelector(".btn-restart");
 
 const noOfRows = Math.floor(board.clientHeight / 30);
 const noOfCols = Math.floor(board.clientWidth / 30);
@@ -244,11 +247,13 @@ function endGame(message = "Oh! You struck the wall ! 🤦") {
   clearInterval(intervalId);
   clearInterval(timeInterval);
 
-  console.log(message);
+  endModal.style.display = "flex";
+  endMessage.innerText = message;
+  yourScore.innerText = `You scored ${score} and played for ${hour} hours, ${minute} minutes, ${second} seconds`;
 
   if (highScore > localStorage.getItem("highScoreOfSnakeGame"))
     localStorage.setItem("highScoreOfSnakeGame", highScore);
-  return alert(message, "Game Over!");
+  return;
 }
 
 function checkFoodEaten() {
